@@ -1,0 +1,19 @@
+PODS:
+  - JCCardView (0.1.0):
+    - Masonry
+  - Masonry (1.0.2)
+
+DEPENDENCIES:
+  - JCCardView (from `../`)
+
+EXTERNAL SOURCES:
+  JCCardView:
+    :path: ../
+
+SPEC CHECKSUMS:
+  JCCardView: 72dd29481e7131899f079f2b2c800347cd108707
+  Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+
+PODFILE CHECKSUM: bd647eab9583f5b10606c929f3ac0a8a41962c20
+
+COCOAPODS: 1.2.1

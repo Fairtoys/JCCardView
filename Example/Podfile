@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'JCCardView_Example' do
+  pod 'JCCardView', :path => '../'
+
+  target 'JCCardView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="JCViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CHW-Vt-UqX" customClass="JCCardView">
+                                <rect key="frame" x="66" y="84" width="243" height="383"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jcd-nL-dQ0">
+                                <rect key="frame" x="149" y="566" width="76" height="30"/>
+                                <state key="normal" title="swipeRight"/>
+                                <connections>
+                                    <action selector="onClickDequeueBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8Fh-Gl-Qqz"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T15-Gu-PWZ">
+                                <rect key="frame" x="53" y="604" width="49" height="30"/>
+                                <state key="normal" title="refresh"/>
+                                <connections>
+                                    <action selector="onClickRefresh:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fk6-nL-pin"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vpz-3N-43q">
+                                <rect key="frame" x="44" y="566" width="67" height="30"/>
+                                <state key="normal" title="swipeLeft"/>
+                                <connections>
+                                    <action selector="onClickSwipeLeft:" destination="BYZ-38-t0r" eventType="touchUpInside" id="i4T-I4-Vx8"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="67S-rR-tSr">
+                                <rect key="frame" x="166" y="604" width="43" height="30"/>
+                                <state key="normal" title="reload"/>
+                                <connections>
+                                    <action selector="onClickReload:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8si-2I-CTH"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ph3-L4-uh4">
+                                <rect key="frame" x="258" y="566" width="51" height="30"/>
+                                <state key="normal" title="resume"/>
+                                <connections>
+                                    <action selector="onClickResumeBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zqg-t7-hAm"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Vpz-3N-43q" firstAttribute="centerY" secondItem="Jcd-nL-dQ0" secondAttribute="centerY" id="B5K-Jl-hcj"/>
+                            <constraint firstItem="67S-rR-tSr" firstAttribute="top" secondItem="Jcd-nL-dQ0" secondAttribute="bottom" constant="8" id="BVW-Ha-d2P"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CHW-Vt-UqX" secondAttribute="trailing" constant="50" id="DGk-Qg-pAe"/>
+                            <constraint firstItem="67S-rR-tSr" firstAttribute="centerX" secondItem="Jcd-nL-dQ0" secondAttribute="centerX" id="GBC-BV-pr6"/>
+                            <constraint firstItem="T15-Gu-PWZ" firstAttribute="centerX" secondItem="Vpz-3N-43q" secondAttribute="centerX" id="KIg-TF-mjv"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="Jcd-nL-dQ0" secondAttribute="bottom" constant="71" id="SM0-bM-VUR"/>
+                            <constraint firstItem="ph3-L4-uh4" firstAttribute="centerY" secondItem="Jcd-nL-dQ0" secondAttribute="centerY" id="UbG-iP-chU"/>
+                            <constraint firstItem="ph3-L4-uh4" firstAttribute="leading" secondItem="Jcd-nL-dQ0" secondAttribute="trailing" constant="33" id="Xmj-m0-Hos"/>
+                            <constraint firstItem="Jcd-nL-dQ0" firstAttribute="leading" secondItem="Vpz-3N-43q" secondAttribute="trailing" constant="38" id="Y4k-wx-LKJ"/>
+                            <constraint firstItem="CHW-Vt-UqX" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="64" id="hIr-Os-ZbT"/>
+                            <constraint firstItem="CHW-Vt-UqX" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="50" id="kcW-b4-QT7"/>
+                            <constraint firstItem="Jcd-nL-dQ0" firstAttribute="centerX" secondItem="CHW-Vt-UqX" secondAttribute="centerX" id="u5d-eN-3PU"/>
+                            <constraint firstItem="T15-Gu-PWZ" firstAttribute="centerY" secondItem="67S-rR-tSr" secondAttribute="centerY" id="x8u-s7-gLj"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="CHW-Vt-UqX" secondAttribute="bottom" constant="200" id="zYU-yF-FEN"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="cardView" destination="CHW-Vt-UqX" id="wHg-I2-jcM"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+        </scene>
+    </scenes>
+</document>
