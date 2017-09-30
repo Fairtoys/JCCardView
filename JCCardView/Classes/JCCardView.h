@@ -135,6 +135,11 @@ typedef void (^JCCardViewProgressingBlock)(JCCardView *cardView, __kindof UIView
 
 
 /**
+ 当点击卡片的回调
+ */
+@property (nonatomic, copy, nullable) JCCardViewItemOptionBlock cardItemDidClickBlock;
+
+/**
  ItemView即将removeFromSuper的回调
  */
 @property (nonatomic, copy, nullable) JCCardViewItemHandleBlock cardItemWillDisapearBlock;

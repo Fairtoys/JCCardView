@@ -58,6 +58,10 @@
         
     }];
     
+    [self.cardView setCardItemDidClickBlock:^(JCCardView * _Nonnull cardView, __kindof UIView * _Nonnull itemView, NSInteger idx) {
+        NSLog(@"cardItemDidClick:%d", idx);
+    }];
+    
     [self.cardView fillCardItems];
 }
 
