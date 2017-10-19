@@ -134,6 +134,20 @@
     _animationDuration = 0.25;
     UIPanGestureRecognizer *ges = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(onPanGes:)];
     [self addGestureRecognizer:ges];
+    
+    UITapGestureRecognizer *tapGes = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onTapGes:)];
+    [self addGestureRecognizer:tapGes];
+}
+
+- (void)onTapGes:(UITapGestureRecognizer *)ges{
+    if (!self.itemViews.count) {
+        return;
+    }
+    
+    if (self.cardItemDidClickBlock) {
+        self.cardItemDidClickBlock(self, self.itemViews.firstObject, self.currentShowingItemIdx);
+    }
+    
 }
 
 - (void)onPanGes:(UIPanGestureRecognizer *)ges{

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'JCCardView'
-  s.version          = '0.1.0'
+  s.version          = '0.2.0'
   s.summary          = '一个带缓存的卡片视图实现，类似于探探，通过Masonry自动布局'
 
 # This description is used to generate tags and improve search results.
@@ -25,7 +25,7 @@ TODO: Add long description of the pod here.
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { '313574889@qq.com' => '313574889@qq.com' }
-  s.source           = { :git => 'https://github.com/313574889@qq.com/JCCardView.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/Fairtoys/JCCardView.git', :tag => s.version.to_s }
   s.social_media_url = 'http://www.jianshu.com/u/1668f8b922bc'
 
   s.ios.deployment_target = '8.0'
