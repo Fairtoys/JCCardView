@@ -10,8 +10,24 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ idx为0位队头和栈底
+ */
 @interface NSMutableArray<ObjectType> (JCQueue)
 
+
+/**
+ 将数据从队尾移除
+
+ @return 数据
+ */
+- (nullable ObjectType)jc_dequeueFromTail;
+/**
+ 从队头插入
+
+ @param obj 对象
+ */
+- (void)jc_enqueueToHead:(id)obj;
 /**
  将数据加入到最末尾
  
@@ -40,6 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
  @return 最后一个数据
  */
 - (nullable ObjectType)jc_pop;
+
 
 @end
 

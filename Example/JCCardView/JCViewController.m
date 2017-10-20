@@ -9,7 +9,6 @@
 #import "JCViewController.h"
 #import "JCCardView.h"
 
-
 @interface JCViewController ()
 
 @end
@@ -59,11 +58,13 @@
     }];
     
     [self.cardView setCardItemDidClickBlock:^(JCCardView * _Nonnull cardView, __kindof UIView * _Nonnull itemView, NSInteger idx) {
-        NSLog(@"cardItemDidClick:%d", idx);
     }];
     
     [self.cardView fillCardItems];
+    
+    
 }
+
 
 - (IBAction)onClickDequeueBtn:(id)sender {
     [self.cardView swipeCardItemToDirection:JCCardViewSwipeDirectionRight];
@@ -83,6 +84,10 @@
 
 - (IBAction)onClickResumeBtn:(id)sender {
     [self.cardView resumeCardItems];
+}
+
+- (IBAction)onClickUndo:(id)sender {
+    [self.cardView undo];
 }
 
 @end

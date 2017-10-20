@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (IBAction)onClickRefresh:(id)sender;
 - (IBAction)onClickReload:(id)sender;
 - (IBAction)onClickResumeBtn:(id)sender;
+- (IBAction)onClickUndo:(id)sender;
 
 
 @end

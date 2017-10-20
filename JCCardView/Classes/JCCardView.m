@@ -21,6 +21,15 @@
 - (void)jc_enqueue:(id)obj{
     [self addObject:obj];
 }
+- (id)jc_dequeueFromTail{
+    id obj = [self lastObject];
+    if (!obj) {
+        return nil;
+    }
+    
+    [self removeObject:obj];
+    return obj;
+}
 
 - (id)jc_dequeue{
     id obj = self.firstObject;
@@ -43,6 +52,10 @@
     }
     [self removeObject:obj];
     return obj;
+}
+
+- (void)jc_enqueueToHead:(id)obj{
+    [self insertObject:obj atIndex:0];
 }
 
 
@@ -79,6 +92,17 @@
 
 @end
 
+@interface JCUndoState : NSObject
+
+@property (nonatomic, assign) JCCardViewSwipeDirection direction;
+
+@end
+
+@implementation JCUndoState
+
+@end
+
+
 @interface JCCardView ()
 
 /**
@@ -92,6 +116,8 @@
 
 @property (nonatomic, strong) NSMutableDictionary <NSString *, Class> *registerdItemClazz;
 
+#pragma mark - 回退
+@property (nonatomic, strong) NSMutableArray <JCUndoState *> *undoStack;//用来记录一下划走的状态
 
 #pragma mark 手势相关
 @property (nonatomic, strong, nullable) UIView *selectedView;//当前滑动中的视图
@@ -277,51 +303,17 @@
         //当前显示的视图索引++，并回调
         self.currentShowingItemIdx ++;
         
+        //入撤销栈
+        JCUndoState *state = [[JCUndoState alloc] init];
+        state.direction = self.direction;
+        [self.undoStack jc_push:state];
+        
         self.direction = JCCardViewSwipeDirectionNone;
         
     }];
 }
 
-- (void)undo{
-    if (self.currentShowingItemIdx <= 0) {
-        return;
-    }
-    //要回显的视图
-    NSInteger idx = self.currentShowingItemIdx - 1;
-    UIView *obj = self.cardItemGetBlock(self, idx);
-    
-    while (self.itemViews.count < _maxCardItemCount + 1) {
-        if (self.cardItemGetBlock) {
-            UIView *obj = self.cardItemGetBlock(self, self.willLoadingItemIdx);
-            if (!obj) {
-                return;
-            }
-            obj.frame = CGRectInset(self.bounds, _translationYOffset, _translationYOffset);
-            [self insertSubview:obj atIndex:0];
-            [self.itemViews jc_enqueue:obj];
-            
-            //加载过的数据的索引+1
-            self.willLoadingItemIdx ++;
-        }else
-            return;
-    }
-    
-    [self setNeedsUpdateConstraints];
-    [UIView animateWithDuration:self.animationDuration animations:^{
-        [self layoutIfNeeded];
-    } completion:^(BOOL finished) {
-//        if (completion) {
-//            completion();
-//        }
-        
-        if (self.cardItemDidApearBlock) {
-            self.cardItemDidApearBlock(self, self.itemViews.firstObject, self.currentShowingItemIdx);
-        }
-        
-    }];
-    
-    
-}
+
 
 - (void)continueCardItemAnimation{
     switch (self.direction) {
@@ -342,6 +334,7 @@
     self.currentShowingItemIdx = 0;
     [self.itemViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self.itemViews removeAllObjects];
+    [self.undoStack removeAllObjects];
     
     [self fillCardItems];
 }
@@ -356,17 +349,15 @@
     self.willLoadingItemIdx -= self.itemViews.count;
     [self.itemViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self.itemViews removeAllObjects];
+    [self.undoStack removeAllObjects];
     
     [self fillCardItems];
 
 }
 
-
 - (void)fillCardItems{
     [self fillCardItemsWithcompletion:NULL];
 }
-
-
 
 - (void)fillCardItemsWithcompletion:(nullable  void (^)())completion{
     while (self.itemViews.count < _maxCardItemCount + 1) {
@@ -398,6 +389,54 @@
         }
 
     }];
+}
+
+- (void)undo{
+    if (self.currentShowingItemIdx <= 0) {
+        return;
+    }
+    //最顶层的即将消失
+    UIView *viewWillDisappear = self.itemViews.firstObject;
+    if (viewWillDisappear) {
+        if (self.cardItemWillDisapearBlock) {
+            self.cardItemWillDisapearBlock(self, viewWillDisappear, self.currentShowingItemIdx, self.direction);
+        }
+    }
+
+    //从屏幕外飞回视图
+    self.currentShowingItemIdx--;
+    
+    JCUndoState *undoStae = [self.undoStack jc_pop];
+    JCCardViewSwipeDirection direction = undoStae.direction;
+    
+    //要回显的视图，设置center，才能从屏幕外飞回来
+    NSInteger idx = self.currentShowingItemIdx;
+    UIView *obj = self.cardItemGetBlock(self, idx);
+    obj.frame = CGRectInset(self.bounds, _translationYOffset, _translationYOffset);
+    obj.center = CGPointMake(CGRectGetMidX(obj.frame) + direction * self.translationForRemovingItem.x, CGRectGetMidY(obj.frame));
+    
+    [self addSubview:obj];
+
+    [self.itemViews jc_enqueueToHead:obj];
+
+    //如果当前的显示总数大于了最大显示数目，则去掉队尾的那一个
+    if (self.itemViews.count > _maxCardItemCount + 1) {
+        UIView *removingObj = [self.itemViews jc_dequeueFromTail];
+        [removingObj removeFromSuperview];
+        self.willLoadingItemIdx --;
+    }
+    
+    
+    [self setNeedsUpdateConstraints];
+    [UIView animateWithDuration:self.animationDuration animations:^{
+        [self layoutIfNeeded];
+    } completion:^(BOOL finished) {
+        if (self.cardItemDidApearBlock) {
+            self.cardItemDidApearBlock(self, self.itemViews.firstObject, self.currentShowingItemIdx);
+        }
+        
+    }];
+    
 }
 
 
@@ -486,6 +525,13 @@
         _reusebleItemViews = [NSMutableDictionary dictionary];
     }
     return _reusebleItemViews;
+}
+
+- (NSMutableArray<JCUndoState *> *)undoStack{
+    if (!_undoStack) {
+        _undoStack = [NSMutableArray array];
+    }
+    return _undoStack;
 }
 
 @end

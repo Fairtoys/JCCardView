@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -61,9 +61,18 @@
                                     <action selector="onClickResumeBtn:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zqg-t7-hAm"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9h2-ae-fhb">
+                                <rect key="frame" x="266" y="604" width="35" height="30"/>
+                                <state key="normal" title="undo"/>
+                                <connections>
+                                    <action selector="onClickUndo:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cu7-Pg-Db9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="9h2-ae-fhb" firstAttribute="centerY" secondItem="67S-rR-tSr" secondAttribute="centerY" id="0OG-gd-3uT"/>
+                            <constraint firstItem="9h2-ae-fhb" firstAttribute="centerX" secondItem="ph3-L4-uh4" secondAttribute="centerX" id="5vv-R5-uzS"/>
                             <constraint firstItem="Vpz-3N-43q" firstAttribute="centerY" secondItem="Jcd-nL-dQ0" secondAttribute="centerY" id="B5K-Jl-hcj"/>
                             <constraint firstItem="67S-rR-tSr" firstAttribute="top" secondItem="Jcd-nL-dQ0" secondAttribute="bottom" constant="8" id="BVW-Ha-d2P"/>
                             <constraint firstAttribute="trailingMargin" secondItem="CHW-Vt-UqX" secondAttribute="trailing" constant="50" id="DGk-Qg-pAe"/>
