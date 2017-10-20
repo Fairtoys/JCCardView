@@ -98,7 +98,6 @@
 
 @property (nonatomic, assign) JCCardViewSwipeDirection direction;//滑动方向
 
-@property (nonatomic, assign) CGFloat maxDetectiveDistance;//最大的移动距离
 
 @property (nonatomic, assign) CGPoint translation;//当前的移动距离
 
@@ -197,7 +196,7 @@
         };
         
         //判断是否需要恢复
-        BOOL isNeedResumeCardItem = JCCardViewSwipeDirectionNone == self.direction && self.progress < 1;
+        BOOL isNeedResumeCardItem = JCCardViewSwipeDirectionNone != self.direction && self.progress < 1;
         
         if (isNeedResumeCardItem) {
             self.direction = JCCardViewSwipeDirectionNone;

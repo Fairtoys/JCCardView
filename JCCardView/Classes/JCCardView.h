@@ -101,6 +101,11 @@ typedef void (^JCCardViewProgressingBlock)(JCCardView *cardView, __kindof UIView
  */
 @property (nonatomic, assign) CGFloat animationDuration;
 
+/**
+ 超过这个距离就会发生左右移除，没超过就会恢复 Defaulut 100.f
+ */
+@property (nonatomic, assign) CGFloat maxDetectiveDistance;
+
 
 #pragma mark - 当前状态相关
 
