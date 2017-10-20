@@ -283,6 +283,47 @@
     }];
 }
 
+- (void)undo{
+    if (self.currentShowingItemIdx <= 0) {
+        return;
+    }
+    //要回显的视图
+    NSInteger idx = self.currentShowingItemIdx - 1;
+    UIView *obj = self.cardItemGetBlock(self, idx);
+    
+    while (self.itemViews.count < _maxCardItemCount + 1) {
+        if (self.cardItemGetBlock) {
+            UIView *obj = self.cardItemGetBlock(self, self.willLoadingItemIdx);
+            if (!obj) {
+                return;
+            }
+            obj.frame = CGRectInset(self.bounds, _translationYOffset, _translationYOffset);
+            [self insertSubview:obj atIndex:0];
+            [self.itemViews jc_enqueue:obj];
+            
+            //加载过的数据的索引+1
+            self.willLoadingItemIdx ++;
+        }else
+            return;
+    }
+    
+    [self setNeedsUpdateConstraints];
+    [UIView animateWithDuration:self.animationDuration animations:^{
+        [self layoutIfNeeded];
+    } completion:^(BOOL finished) {
+//        if (completion) {
+//            completion();
+//        }
+        
+        if (self.cardItemDidApearBlock) {
+            self.cardItemDidApearBlock(self, self.itemViews.firstObject, self.currentShowingItemIdx);
+        }
+        
+    }];
+    
+    
+}
+
 - (void)continueCardItemAnimation{
     switch (self.direction) {
         case JCCardViewSwipeDirectionNone:

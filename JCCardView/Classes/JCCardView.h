@@ -202,6 +202,12 @@ typedef void (^JCCardViewProgressingBlock)(JCCardView *cardView, __kindof UIView
  */
 - (void)resumeCardItems;
 
+
+/**
+ 撤销滑动
+ */
+- (void)undo;
+
 #pragma mark -重用相关
 
 /**
