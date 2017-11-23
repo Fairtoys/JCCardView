@@ -131,6 +131,7 @@
 
 @property (nonatomic, strong, nullable) UIView *tempHandlingView;//当前触发了移除条件正要移除的视图
 
+@property (nonatomic, assign, getter=isAnimating) BOOL animating;//当前是否正在做动画
 
 @end
 
@@ -166,6 +167,10 @@
 }
 
 - (void)onTapGes:(UITapGestureRecognizer *)ges{
+    if (self.isAnimating) {
+        return;
+    }
+
     if (!self.itemViews.count) {
         return;
     }
@@ -177,7 +182,10 @@
 }
 
 - (void)onPanGes:(UIPanGestureRecognizer *)ges{
-    
+    if (self.isAnimating) {
+        return;
+    }
+
     if (UIGestureRecognizerStateBegan == ges.state) {
         self.selectedView = self.itemViews.firstObject;
         return;
@@ -246,21 +254,30 @@
 }
 
 - (void)resumeCardItems{
+    if (self.isAnimating) {
+        return;
+    }
+
     if (self.cardItemAnimationWillBeginBlock) {
         self.cardItemAnimationWillBeginBlock(self, self.tempHandlingView, self.currentShowingItemIdx, self.direction);
     }
     
     [self setNeedsUpdateConstraints];
     [self setNeedsLayout];
+    self.animating = YES;
     [UIView animateWithDuration:self.animationDuration animations:^{
         self.tempHandlingView.transform = CGAffineTransformIdentity;
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
         self.tempHandlingView = nil;
+        self.animating = NO;
     }];
 }
 
 - (void)swipeCardItemToDirection:(JCCardViewSwipeDirection)direction{
+    if (self.isAnimating) {
+        return;
+    }
     self.direction = direction;
     [self swipeCardItem];
 }
@@ -330,6 +347,10 @@
 }
 
 - (void)reloadCardItems{
+    if (self.isAnimating) {
+        return;
+    }
+
     self.willLoadingItemIdx = 0;
     self.currentShowingItemIdx = 0;
     [self.itemViews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -340,6 +361,10 @@
 }
 
 - (void)refreshCardItems{
+    if (self.isAnimating) {
+        return;
+    }
+
     //如果当前正在显示某个视图，则调用willDisapear回调
     if (self.itemViews.count) {
         if (self.cardItemWillDisapearBlock) {
@@ -377,6 +402,7 @@
     }
     
     [self setNeedsUpdateConstraints];
+    self.animating = YES;
     [UIView animateWithDuration:self.animationDuration animations:^{
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
@@ -387,11 +413,15 @@
         if (self.cardItemDidApearBlock) {
             self.cardItemDidApearBlock(self, self.itemViews.firstObject, self.currentShowingItemIdx);
         }
-
+        self.animating = NO;
     }];
 }
 
 - (void)undo{
+    if (self.isAnimating) {
+        return;
+    }
+
     if (self.currentShowingItemIdx <= 0) {
         return;
     }
@@ -428,13 +458,15 @@
     
     
     [self setNeedsUpdateConstraints];
+    
+    self.animating = YES;
     [UIView animateWithDuration:self.animationDuration animations:^{
         [self layoutIfNeeded];
     } completion:^(BOOL finished) {
         if (self.cardItemDidApearBlock) {
             self.cardItemDidApearBlock(self, self.itemViews.firstObject, self.currentShowingItemIdx);
         }
-        
+        self.animating = NO;
     }];
     
 }

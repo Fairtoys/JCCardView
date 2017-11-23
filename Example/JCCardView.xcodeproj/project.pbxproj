@@ -251,7 +251,7 @@
 				ORGANIZATIONNAME = "313574889@qq.com";
 				TargetAttributes = {
 					6003F589195388D20070C39A = {
-						DevelopmentTeam = 48E3LB8PD7;
+						DevelopmentTeam = B32Q3GTC9Y;
 					};
 					6003F5AD195388D20070C39A = {
 						TestTargetID = 6003F589195388D20070C39A;
@@ -538,7 +538,7 @@
 			baseConfigurationReference = 498522E0324C2D4A9802BB96 /* Pods-JCCardView_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 48E3LB8PD7;
+				DEVELOPMENT_TEAM = B32Q3GTC9Y;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JCCardView/JCCardView-Prefix.pch";
 				INFOPLIST_FILE = "JCCardView/JCCardView-Info.plist";
@@ -554,7 +554,7 @@
 			baseConfigurationReference = A86C6E2415814E4B01FC9EF5 /* Pods-JCCardView_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 48E3LB8PD7;
+				DEVELOPMENT_TEAM = B32Q3GTC9Y;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "JCCardView/JCCardView-Prefix.pch";
 				INFOPLIST_FILE = "JCCardView/JCCardView-Info.plist";
