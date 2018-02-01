@@ -151,7 +151,7 @@ typedef void (^JCCardViewProgressingBlock)(JCCardView *cardView, __kindof UIView
 
 #pragma mark - callbacks 回调
 /**
- 获取ItemView的回调
+ 获取ItemView的回调,如果返回view为nil的话，则不会创建新的Itemview了
  */
 @property (nonatomic, copy, nullable) JCCardViewGetItemViewBlock cardItemGetBlock;
 

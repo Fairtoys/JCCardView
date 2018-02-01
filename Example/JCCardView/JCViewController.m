@@ -20,12 +20,14 @@
     [super viewDidLoad];
     self.cardView.maxCardItemCount = 3;
     [self.cardView registerCardItemViewClass:[UIView class] forIdentifier:@"identifier"];
+//    NSArray *datas = @[];
     self.cardView.cardItemGetBlock = ^__kindof UIView * _Nullable(JCCardView * _Nonnull cardView, NSInteger idx) {
-        UIView *view = [cardView dequeueReuseableCardItemViewWithIdentifier:@"identifier"];
-        //        uint32_t width = arc4random_uniform(100);
-        //        uint32_t height = arc4random_uniform(200);
-        //        view.frame = CGRectMake(10, 10, width, height);
-        //        UIView *view = [[UIView alloc]  init];
+        if (idx > 5) {
+            return nil;
+        }
+        UIImageView *view = [cardView dequeueReuseableCardItemViewWithIdentifier:@"identifier"];
+        
+//        NSString *url = datas[idx % datas.count];
         
         view.backgroundColor = [UIColor colorWithRed: arc4random_uniform(255)/ 255.f green:arc4random_uniform(255)/ 255.f blue:arc4random_uniform(255)/ 255.f alpha:1];
         view.layer.cornerRadius = 10;
@@ -39,7 +41,7 @@
     [self.cardView setItemPanningBlock:^(JCCardView * _Nonnull cardView, __kindof UIView * _Nonnull itemView, NSInteger idx, CGFloat progress) {
         NSLog(@"setItemPanningBlock:%f", progress);
     }];
-    
+
     [self.cardView setCardItemDidApearBlock:^(JCCardView * _Nonnull cardView, __kindof UIView * _Nonnull itemView, NSInteger idx) {
         NSLog(@"setItemDidApearBlock:%@ , idx:%d", NSStringFromSelector(_cmd), idx);
     }];
@@ -58,6 +60,7 @@
     }];
     
     [self.cardView setCardItemDidClickBlock:^(JCCardView * _Nonnull cardView, __kindof UIView * _Nonnull itemView, NSInteger idx) {
+        NSLog(@"did click:%@", @(idx));
     }];
     
     [self.cardView fillCardItems];

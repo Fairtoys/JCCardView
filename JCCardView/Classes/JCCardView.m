@@ -389,7 +389,7 @@
         if (self.cardItemGetBlock) {
             UIView *obj = self.cardItemGetBlock(self, self.willLoadingItemIdx);
             if (!obj) {
-                return;
+                break;
             }
             obj.frame = CGRectInset(self.bounds, _translationYOffset, _translationYOffset);
             [self insertSubview:obj atIndex:0];
